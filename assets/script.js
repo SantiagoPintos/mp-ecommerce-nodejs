@@ -1,4 +1,4 @@
-const mp = new MercadoPago('TEST-57dc2bf9-9b89-4c44-a015-5662b0d2936c', {
+const mp = new MercadoPago('APP_USR-3fa91575-503e-476a-b21d-4f49cae39fa6', {
     locale: 'es-UY'
 });
 
