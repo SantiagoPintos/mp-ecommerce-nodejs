@@ -10,8 +10,8 @@ const __dirname = path.dirname(__filename);
 const client = new MercadoPagoConfig({
     accessToken: process.env.ACCESS_TOKEN
 });
-const preference = new Preference({client});
 
+const preference = new Preference(client);
 const app = express();
 const port = process.env.PORT || 3000;
 
