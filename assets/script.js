@@ -12,7 +12,7 @@ document.querySelector("#payment-btn").addEventListener("click", async () => {
     }
     console.log(data);
     try {
-        const res = await fetch('http://localhost:3000/detail',{
+        const res = await fetch('https://mp-ecommerce-nodejs-ih36.onrender.com/detail',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

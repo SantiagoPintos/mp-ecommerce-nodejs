@@ -99,12 +99,12 @@ app.post('/detail', async function (req, res) {
                 }
             },
             back_urls: {
-                "success": "http://localhost:3000/success",
-                "failure": "http://localhost:3000/failure",
-                "pending": "http://localhost:3000/pending"
+                "success": "https://mp-ecommerce-nodejs-ih36.onrender.com/success",
+                "failure": "https://mp-ecommerce-nodejs-ih36.onrender.com/failure",
+                "pending": "https://mp-ecommerce-nodejs-ih36.onrender.com/pending"
             },
             auto_return: "approved",
-            notification_url: "http://localhost:3000/notifications",
+            notification_url: "https://mp-ecommerce-nodejs-ih36.onrender.com/notifications",
             external_reference: process.env.EMAIL,
         },
         requestOptions: {
