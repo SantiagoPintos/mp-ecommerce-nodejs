@@ -112,8 +112,7 @@ app.post('/detail', async function (req, res) {
         }
     })
     .then((response) => {
-        console.log(response);
-        response.json({id: response.id});
+        res.json({id: response.id});
     })
     .catch(error => {
         console.log(error);
