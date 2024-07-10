@@ -31,17 +31,11 @@ function renderCheckoutButton(pref) {
     const bricksBuilder = mp.bricks();
 
     async function showComponent(bricksBuilder) {
-        if (window.checkoutButton) window.checkoutButton.unmount();
         await bricksBuilder.create('wallet', 'button-checkout', {
             initialization: {
                 preferenceId: pref,
                 redirectMode: 'modal'
-            },
-            customization: {
-                texts: {
-                    valueProp: 'Pagar compra!'
-                }
-            },
+            }
         });
     }
 
