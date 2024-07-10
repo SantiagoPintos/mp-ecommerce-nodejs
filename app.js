@@ -8,12 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const client = new MercadoPagoConfig({
-    accessToken: process.env.ACCESS_TOKEN,
-    options: {
-        // from docs
-        integratorId: 'dev_24c65fb163bf11ea96500242ac130004',
-        
-    }
+    accessToken: process.env.ACCESS_TOKEN
 });
 const preference = new Preference({client});
 
@@ -55,8 +50,9 @@ app.post('/notifications', function (req, res) {
     res.status(200).send('OK');
 });
 
-app.post('/new_preference', function (req, res) {
-    preference.create({
+app.post('/new_preference', async function (req, res) {
+    const { title, price, unit, img } = req.body;
+    await preference.create({
         body: {
             payment_methods: {
                 excluded_payment_methods: [
@@ -74,11 +70,11 @@ app.post('/new_preference', function (req, res) {
             items: [
                 {
                     id: Number(1111),
-                    title: req.body.title,
+                    title: title,
                     description: "Dispositivo móvil de Tienda e-commerce",
-                    picture_url: req.body.img,
-                    quantity: Number(req.body.unit),
-                    unit_price: Number(req.body.price),
+                    picture_url: img,
+                    quantity: Number(unit),
+                    unit_price: Number(price),
                 }
             ],
             payer: {
@@ -101,17 +97,25 @@ app.post('/new_preference', function (req, res) {
                 }
             },
             back_urls: {
-                "success": "https://www.success.com",
-                "failure": "http://www.failure.com",
-                "pending": "http://www.pending.com"
+                "success": "http://localhost:3000/success",
+                "failure": "http://localhost:3000/failure",
+                "pending": "http://localhost:3000/pending"
             },
             auto_return: "approved",
-            notification_url: "https://webhook.site/",
+            notification_url: "http://localhost:3000/webhook",
             external_reference: process.env.EMAIL,
+        },
+        requestOptions: {
+            integratorId: 'dev_24c65fb163bf11ea96500242ac130004',
         }
     })
-    .then(console.log)
-    .catch(console.error);
+    .then((response) => {
+        console.log(response);
+        response.json({id: response.id});
+    })
+    .catch(error => {
+        console.log(error);
+    });
 });
 
 app.listen(port);
