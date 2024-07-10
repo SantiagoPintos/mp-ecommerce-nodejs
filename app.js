@@ -47,10 +47,12 @@ app.get('/checkout', function (req, res) {
     res.render('checkout', req.query);
 });
 app.post('/notifications', function (req, res) {
-    res.status(200).send('OK');
+    const payment_data = req.body;
+    console.log(payment_data);
+    res.status(200).json({result: payment_data});
 });
 
-app.post('/new_preference', async function (req, res) {
+app.post('/detail', async function (req, res) {
     const { title, price, unit, img } = req.body;
     await preference.create({
         body: {
@@ -102,7 +104,7 @@ app.post('/new_preference', async function (req, res) {
                 "pending": "http://localhost:3000/pending"
             },
             auto_return: "approved",
-            notification_url: "http://localhost:3000/webhook",
+            notification_url: "http://localhost:3000/notifications",
             external_reference: process.env.EMAIL,
         },
         requestOptions: {
