@@ -1,20 +1,24 @@
-var express = require('express');
-var exphbs  = require('express-handlebars');
-var port = process.env.PORT || 3000
-const mercadopago = require('mercadopago');
+import express from 'express';
+import exphbs from 'express-handlebars'
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const client = new mercadopago.MercadoPagoConfig({
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const client = new MercadoPagoConfig({
     accessToken: process.env.ACCESS_TOKEN,
     options: {
         // from docs
         integratorId: 'dev_24c65fb163bf11ea96500242ac130004',
-    
+        
     }
 });
-const preference = new mercadopago.Preference({client});
+const preference = new Preference({client});
 
-
-var app = express();
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,8 +27,8 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 app.use(express.static('assets'));
- 
-app.use('/assets', express.static(__dirname + '/assets'));
+
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', function (req, res) {
     res.render('home');
