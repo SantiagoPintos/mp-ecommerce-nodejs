@@ -35,13 +35,31 @@ app.get('/detail', function (req, res) {
 
 
 app.get('/success', function (req, res) {
-    res.render('success', req.query);
+    res.render('success', {
+		payment: req.query.payment_id,
+		status: req.query.status,
+		merchantOrder: req.query.merchant_order_id,
+        externalReference: req.query.external_reference,
+        paymentType: req.query.payment_type
+    })
 });
 app.get('/failure', function (req, res) {
-    res.render('failure', req.query);
+    res.render('failure', {
+		payment: req.query.payment_id,
+		status: req.query.status,
+		merchantOrder: req.query.merchant_order_id,
+        externalReference: req.query.external_reference,
+        paymentType: req.query.payment_type
+    })
 });
 app.get('/pending', function (req, res) {
-    res.render('pending', req.query);
+    res.render('pending', {
+		payment: req.query.payment_id,
+		status: req.query.status,
+		merchantOrder: req.query.merchant_order_id,
+        externalReference: req.query.external_reference,
+        paymentType: req.query.payment_type
+    });
 });
 app.get('/checkout', function (req, res) {
     res.render('checkout', req.query);
