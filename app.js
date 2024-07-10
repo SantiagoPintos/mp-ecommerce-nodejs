@@ -69,7 +69,7 @@ app.post('/new_preference', function (req, res) {
             },
             items: [
                 {
-                    id: Number(1),
+                    id: Number(1111),
                     title: req.body.title,
                     description: "Dispositivo móvil de Tienda e-commerce",
                     picture_url: req.body.img,
@@ -91,8 +91,8 @@ app.post('/new_preference', function (req, res) {
                     number: "91533399",
                 },
                 address: {
-                    street_name: "Street street",
-                    street_number: 1602,
+                    street_name: "Calle Falsa",
+                    street_number: Number(123),
                     zip_code: "90000",
                 }
             },
