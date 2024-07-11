@@ -3,17 +3,18 @@ import exphbs from 'express-handlebars'
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { BASE_URL, ACCESS_TOKEN, PORT, EMAIL, INTEGRATORID } from './constants/constants';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const client = new MercadoPagoConfig({
-    accessToken: process.env.ACCESS_TOKEN
+    accessToken: ACCESS_TOKEN
 });
 
 const preference = new Preference(client);
 const app = express();
-const port = process.env.PORT || 3000;
+const port = PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -117,16 +118,16 @@ app.post('/detail', async function (req, res) {
                 }
             },
             back_urls: {
-                "success": "https://mp-ecommerce-nodejs-ih36.onrender.com/success",
-                "failure": "https://mp-ecommerce-nodejs-ih36.onrender.com/failure",
-                "pending": "https://mp-ecommerce-nodejs-ih36.onrender.com/pending"
+                "success": `${BASE_URL}/success`,
+                "failure": `${BASE_URL}/failure`,
+                "pending": `${BASE_URL}/pending`,
             },
             auto_return: "approved",
-            notification_url: "https://mp-ecommerce-nodejs-ih36.onrender.com/notifications",
-            external_reference: process.env.EMAIL,
+            notification_url: `${BASE_URL}/notifications`,
+            external_reference: EMAIL,
         },
         requestOptions: {
-            integratorId: 'dev_24c65fb163bf11ea96500242ac130004',
+            integratorId: INTEGRATORID,
         }
     })
     .then((response) => {
