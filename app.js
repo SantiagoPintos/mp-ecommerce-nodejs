@@ -2,11 +2,8 @@ import express from 'express';
 import exphbs from 'express-handlebars'
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { BASE_URL, ACCESS_TOKEN, PORT, EMAIL, INTEGRATORID } from './constants/constants';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { __dirname } from './utils/path.js'
+import { BASE_URL, ACCESS_TOKEN, PORT, EMAIL, INTEGRATORID } from './constants/constants.js';
 
 const client = new MercadoPagoConfig({
     accessToken: ACCESS_TOKEN
